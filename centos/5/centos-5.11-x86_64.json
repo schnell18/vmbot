@@ -32,7 +32,7 @@
     }],
     "post-processors": [{
         "type"   : "vagrant",
-        "output" : "build/cvc-devel-511.box"
+        "output" : "cvc-devel-511.box"
     }],
     "provisioners": [{
         "type"            : "shell",
