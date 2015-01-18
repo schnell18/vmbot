@@ -1,0 +1,47 @@
+{
+    "builders": [{
+        "type"             : "virtualbox-iso",
+        "headless"         : false,
+        "vm_name"          : "centos66_jdk7",
+        "output_directory" : "build",
+        "guest_os_type"    : "RedHat_64",
+        "disk_size"        : 40960,
+        "ssh_wait_timeout" : "120m",
+
+        "iso_url"           : "http://mirrors.yun-idc.com/centos/6.6/isos/x86_64/CentOS-6.6-x86_64-bin-DVD1.iso",
+        "iso_checksum"      : "08be09fd7276822bd3468af8f96198279ffc41f0",
+        "iso_checksum_type" : "sha1",
+
+        "boot_command": [
+            "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-6.6-java7-x86_64/ks.cfg<enter><wait>"
+        ],
+        "boot_wait": "4s",
+
+        "http_directory"       : "unattended",
+        "guest_additions_path" : "VBoxGuestAdditions_{{.Version}}.iso",
+
+        "ssh_username"     : "devel",
+        "ssh_password"     : "devel",
+        "ssh_port"         : 22,
+        "shutdown_command" : "sudo /sbin/halt -h -p",
+
+        "vboxmanage": [
+            ["modifyvm", "{{.Name}}", "--memory", "512"],
+            ["modifyvm", "{{.Name}}", "--cpus", "1"]
+        ]
+    }],
+    "post-processors": [{
+        "type"                 : "vagrant",
+        "include"              : ["vagrant/private.key"],
+        "vagrantfile_template" : "vagrant/Vagrantfile",
+        "output"               : "centos66_jdk7.box"
+    }],
+    "provisioners": [{
+        "type"            : "shell",
+        "execute_command" : "{{ .Vars }} sudo -E sh '{{ .Path }}'",
+        "scripts"         : [
+            "provisioning/vboxguest.sh",
+            "provisioning/compact.sh"
+        ]
+    }]
+}
