@@ -31,8 +31,10 @@
         ]
     }],
     "post-processors": [{
-        "type"   : "vagrant",
-        "output" : "centos70_min.box"
+        "type"                 : "vagrant",
+        "include"              : ["vagrant/private.key"],
+        "vagrantfile_template" : "vagrant/Vagrantfile",
+        "output"               : "centos70_min.box"
     }],
     "provisioners": [{
         "type"            : "shell",
