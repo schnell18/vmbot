@@ -1,0 +1,47 @@
+{
+    "builders": [{
+        "type"             : "virtualbox-iso",
+        "headless"         : false,
+        "vm_name"          : "centos71_min",
+        "output_directory" : "build",
+        "guest_os_type"    : "RedHat_64",
+        "disk_size"        : 40960,
+        "ssh_wait_timeout" : "120m",
+
+        "iso_url"           : "http://mirrors.yun-idc.com/centos/7.1.1503/isos/x86_64/CentOS-7-x86_64-DVD-1503-01.iso",
+        "iso_checksum"      : "1795184136b8bdddabe50453cc2cc2d46f0f7c5e",
+        "iso_checksum_type" : "sha1",
+
+        "boot_command": [
+            "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-7.1/ks.cfg<enter><wait>"
+        ],
+        "boot_wait": "4s",
+
+        "http_directory"       : "unattended",
+        "guest_additions_path" : "VBoxGuestAdditions_{{.Version}}.iso",
+
+        "ssh_username"     : "devel",
+        "ssh_password"     : "devel",
+        "ssh_port"         : 22,
+        "shutdown_command" : "sudo /sbin/halt -h -p",
+
+        "vboxmanage": [
+            ["modifyvm", "{{.Name}}", "--memory", "512"],
+            ["modifyvm", "{{.Name}}", "--cpus", "1"]
+        ]
+    }],
+    "post-processors": [{
+        "type"                 : "vagrant",
+        "include"              : ["vagrant/private.key"],
+        "vagrantfile_template" : "vagrant/Vagrantfile",
+        "output"               : "centos71_min.box"
+    }],
+    "provisioners": [{
+        "type"            : "shell",
+        "execute_command" : "{{ .Vars }} sudo -E sh '{{ .Path }}'",
+        "scripts"         : [
+            "provisioning/vboxguest.sh",
+            "provisioning/compact.sh"
+        ]
+    }]
+}
