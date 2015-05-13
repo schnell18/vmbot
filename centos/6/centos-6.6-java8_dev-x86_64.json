@@ -38,8 +38,16 @@
     }],
     "provisioners": [{
         "type"        : "file",
-        "source"      : "unattended/proprietary/jdk-8u45-linux-x64.rpm",
+        "source"      : "unattended/pre-requisite/jdk-8u45-linux-x64.rpm",
         "destination" : "/tmp/jdk-linux-x64.rpm"
+        },{
+        "type"        : "file",
+        "source"      : "unattended/pre-requisite/gradle-2.4-bin.zip",
+        "destination" : "/tmp/gradle-2.4-bin.zip"
+        },{
+        "type"        : "file",
+        "source"      : "unattended/pre-requisite/apache-maven-3.3.3-bin.tar.gz",
+        "destination" : "/tmp/apache-maven-3.3.3-bin.tar.gz"
         },{
         "type"            : "shell",
         "execute_command" : "{{ .Vars }} sudo -E sh '{{ .Path }}'",
