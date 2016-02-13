@@ -11,7 +11,7 @@ ln -s /usr/local/apache-maven-${MAVEN_VERSION} /usr/local/maven
 rm -f /tmp/apache-maven-${MAVEN_VERSION}-bin.tar.gz
 
 # install gradle
-GRADLE_VERSION=2.4
+GRADLE_VERSION=2.11
 unzip /tmp/gradle-${GRADLE_VERSION}-bin.zip -d /usr/local/
 ln -s /usr/local/gradle-${GRADLE_VERSION} /usr/local/gradle
 rm -f /tmp/gradle-${GRADLE_VERSION}-bin.zip
