@@ -2,18 +2,18 @@
     "builders": [{
         "type"             : "virtualbox-iso",
         "headless"         : false,
-        "vm_name"          : "centos67_min",
+        "vm_name"          : "centos66_java8_dev",
         "output_directory" : "build",
         "guest_os_type"    : "RedHat_64",
         "disk_size"        : 40960,
         "ssh_wait_timeout" : "120m",
 
-        "iso_url"           : "http://mirrors.163.com/centos/6.7/isos/x86_64/CentOS-6.7-x86_64-bin-DVD1.iso",
-        "iso_checksum"      : "c0c1a05d3d74fb093c6232003da4b22b0680f59d3b2fa2cb7da736bc40b3f2c5",
-        "iso_checksum_type" : "sha256",
+        "iso_url"           : "http://mirrors.yun-idc.com/centos/6.6/isos/x86_64/CentOS-6.6-x86_64-bin-DVD1.iso",
+        "iso_checksum"      : "08be09fd7276822bd3468af8f96198279ffc41f0",
+        "iso_checksum_type" : "sha1",
 
         "boot_command": [
-            "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-6.7-x86_64/ks.cfg<enter><wait>"
+            "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-6.6-x86_64/ks.cfg<enter><wait>"
         ],
         "boot_wait": "4s",
 
@@ -34,22 +34,35 @@
         "type"                 : "vagrant",
         "include"              : ["vagrant/private.key"],
         "vagrantfile_template" : "vagrant/Vagrantfile",
-        "output"               : "centos67_min.box"
+        "output"               : "centos66_java8_dev.box"
     }],
     "provisioners": [{
         "type"        : "file",
-        "source"      : "vagrant/private.key",
-        "destination" : "/tmp/id_rsa"
+        "source"      : "unattended/pre-requisite/jdk-8u74-linux-x64.rpm",
+        "destination" : "/tmp/jdk-linux-x64.rpm"
         },{
         "type"        : "file",
-        "source"      : "unattended/pre-requisite/cpanm",
-        "destination" : "/tmp/cpanm"
+        "source"      : "unattended/pre-requisite/nodejs-5.7.0-1nodesource.el6.x86_64.rpm",
+        "destination" : "/tmp/nodejs-5.7.0-1nodesource.el6.x86_64.rpm"
+        },{
+        "type"        : "file",
+        "source"      : "unattended/pre-requisite/gradle-2.11-bin.zip",
+        "destination" : "/tmp/gradle-2.11-bin.zip"
+        },{
+        "type"        : "file",
+        "source"      : "unattended/pre-requisite/apache-maven-3.3.3-bin.tar.gz",
+        "destination" : "/tmp/apache-maven-3.3.3-bin.tar.gz"
+        },{
+        "type"        : "file",
+        "source"      : "vagrant/private.key",
+        "destination" : "/tmp/id_rsa"
         },{
         "type"            : "shell",
         "execute_command" : "{{ .Vars }} sudo -E sh '{{ .Path }}'",
         "scripts"         : [
             "provisioning/ssh.sh",
-            "provisioning/perl.sh",
+            "provisioning/java.sh",
+            "provisioning/node.sh",
             "provisioning/vboxguest.sh",
             "provisioning/compact.sh"
         ]

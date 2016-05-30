@@ -49,9 +49,14 @@
         "source"      : "unattended/pre-requisite/apache-maven-3.3.3-bin.tar.gz",
         "destination" : "/tmp/apache-maven-3.3.3-bin.tar.gz"
         },{
+        "type"        : "file",
+        "source"      : "vagrant/private.key",
+        "destination" : "/tmp/id_rsa"
+        },{
         "type"            : "shell",
         "execute_command" : "{{ .Vars }} sudo -E sh '{{ .Path }}'",
         "scripts"         : [
+            "provisioning/ssh.sh",
             "provisioning/java.sh",
             "provisioning/vboxguest.sh",
             "provisioning/compact.sh"
