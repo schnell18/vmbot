@@ -13,6 +13,9 @@ On Linux/MacOS, you run this instead:
 
     ./build.sh
 
+Before you build centos-6.9-java8-x86\_64.json, you need download a
+recent JDK rpm from Oracle and place it under the centos/.rpms directory.
+
 # Virtual Machine catalog
 | Type          | OS            | Pkgs      | root pass | comment   |
 | ------------- | ------------- | --------- | --------- | --------- |
