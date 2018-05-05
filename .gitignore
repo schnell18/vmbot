@@ -3,5 +3,6 @@
 *.swo
 *.log
 *.box
+.rpms/
 packer_cache/
 build/

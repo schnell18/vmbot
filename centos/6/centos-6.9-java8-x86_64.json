@@ -1,0 +1,52 @@
+{
+    "builders": [{
+        "type"             : "virtualbox-iso",
+        "headless"         : false,
+        "vm_name"          : "centos69_jdk8",
+        "output_directory" : "build",
+        "guest_os_type"    : "RedHat_64",
+        "disk_size"        : 40960,
+        "ssh_wait_timeout" : "120m",
+
+        "iso_url"           : "http://mirrors.yun-idc.com/centos/6.9/isos/x86_64/CentOS-6.9-x86_64-bin-DVD1.iso",
+        "iso_checksum"      : "09c68654986feee54dcc6cad72771b7fe4be9703",
+        "iso_checksum_type" : "sha1",
+
+        "boot_command": [
+            "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-6.9-java8-x86_64/ks.cfg<enter><wait>"
+        ],
+        "boot_wait": "4s",
+
+        "http_directory"       : "unattended",
+        "guest_additions_path" : "VBoxGuestAdditions_{{.Version}}.iso",
+
+        "ssh_username"     : "devel",
+        "ssh_password"     : "devel",
+        "ssh_port"         : 22,
+        "shutdown_command" : "sudo /sbin/halt -h -p",
+
+        "vboxmanage": [
+            ["modifyvm", "{{.Name}}", "--memory", "512"],
+            ["modifyvm", "{{.Name}}", "--cpus", "1"]
+        ]
+    }],
+    "post-processors": [{
+        "type"                 : "vagrant",
+        "include"              : ["vagrant/private.key"],
+        "vagrantfile_template" : "vagrant/Vagrantfile",
+        "output"               : "centos69-java8.box"
+    }],
+    "provisioners": [{
+        "type": "file",
+        "source": ".rpms/jdk-8u171-linux-x64.rpm",
+        "destination": "/tmp/jdk-8u171-linux-x64.rpm"
+       }, {
+        "type"            : "shell",
+        "execute_command" : "{{ .Vars }} sudo -E sh '{{ .Path }}'",
+        "scripts"         : [
+            "provisioning/install-java.sh",
+            "provisioning/vboxguest.sh",
+            "provisioning/compact.sh"
+        ]
+    }]
+}
