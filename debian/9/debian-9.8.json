@@ -1,0 +1,54 @@
+{
+    "builders": [{
+        "type"             : "virtualbox-iso",
+        "headless"         : false,
+        "vm_name"          : "debian98-min",
+        "output_directory" : "build",
+        "guest_os_type"    : "Debian_64",
+        "disk_size"        : 40960,
+        "ssh_wait_timeout" : "120m",
+        "hard_drive_nonrotational" : true,
+        "hard_drive_discard" : true,
+
+        "iso_url"           : "https://mirrors.aliyun.com/debian-cd/current/amd64/iso-dvd/debian-9.8.0-amd64-DVD-1.iso",
+        "iso_checksum"      : "f57d141f20265a9e9ddb0854da11cf636ae01a33",
+        "iso_checksum_type" : "sha1",
+
+        "boot_command": [
+            "<esc><wait>",
+            "auto ",
+            "net.ifnames=0  ",
+            "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/debian-9.8/preseed.cfg ",
+            "<enter>"
+        ],
+        "boot_wait": "4s",
+
+        "http_directory"       : "unattended",
+        "guest_additions_path" : "VBoxGuestAdditions_{{.Version}}.iso",
+
+        "ssh_username"     : "devel",
+        "ssh_password"     : "devel",
+        "ssh_port"         : 22,
+        "shutdown_command" : "sudo /sbin/halt -h -p",
+
+        "vboxmanage": [
+            ["modifyvm", "{{.Name}}", "--memory", "512"],
+            ["modifyvm", "{{.Name}}", "--cpus", "1"]
+        ]
+    }],
+    "post-processors": [{
+        "type"                 : "vagrant",
+        "include"              : ["vagrant/private.key"],
+        "vagrantfile_template" : "vagrant/Vagrantfile",
+        "output"               : "scientificlinux-76.box"
+    }],
+    "provisioners": [{
+        "type"            : "shell",
+        "execute_command" : "{{ .Vars }} sudo -E sh '{{ .Path }}'",
+        "scripts"         : [
+            "provisioning/vboxguest.sh",
+            "provisioning/acct.sh",
+            "provisioning/compact.sh"
+        ]
+    }]
+}
