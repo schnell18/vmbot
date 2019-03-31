@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-useradd -G wheel -s /bin/bash devel
-echo "devel" | passwd --stdin devel
-echo "devel        ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
-sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
 mkdir ~devel/.ssh
 cat <<EOF > ~devel/.ssh/authorized_keys
 ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEArlAzSLt69/Ts+10k8AaMPTyjXDX6TgePtk2weQykSO4cvR/ufBKiWENq3wUflIqbGfgNkuVeux8XKe4ko7pAGToH44CkEaf3p9+oSsqEp/H1vu3q8VSJutBK0OTmIJzgxXWrM15esbJl6ew0h7VIgT//8Grjqn0MFUK5/rNEYj8+yI3yUbn5y0doFjYwy0J6EwIHwCvumtxQV76jHc7DAeKE1GQCsBDtFRDypdkWMVArkEYRv7dNDbHsBiMGBqj/2LrAX9/eroQ5sp3kdVEIl4HRgbOXrRA7Odeh+UAQwctxGowJXreqX+ZxIapwOoF8RulUAjThH/VRAOfLUcSvYw== Shared CVC public key
