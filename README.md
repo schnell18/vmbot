@@ -17,13 +17,18 @@ Before you build centos-6.9-java8-x86\_64.json, you need download a
 recent JDK rpm from Oracle and place it under the centos/.rpms directory.
 
 # Virtual Machine catalog
-| Type          | OS            | Pkgs      | root pass | comment   |
-| ------------- | ------------- | --------- | --------- | --------- |
-| VirtualBox    | CentOS-7.2    | core,base | root      | WIP       |
-| VirtualBox    | CentOS-7.0    | core,base | root      | Done      |
-| VirtualBox    | CentOS-6.7    | core,base | root      | Done      |
-| VirtualBox    | CentOS-6.6    | core,base | root      | Done      |
-| VirtualBox    | CentOS-6.5    | core,base | root      | Done      |
-| VirtualBox    | CentOS-5.11   | core,base | root      | Done      |
+| Type          | OS                  | Pkgs      | root pass | comment   |
+| ------------- | ------------------- | --------- | --------- | --------- |
+| VirtualBox    | Debian-9.8          | core,base | root      | Done      |
+| VirtualBox    | ScientificLinux-7.6 | core,base | root      | Done      |
+| VirtualBox    | CentOS-7.4          | core,base | root      | Done      |
+| VirtualBox    | CentOS-7.3          | core,base | root      | Done      |
+| VirtualBox    | CentOS-7.2          | core,base | root      | Done      |
+| VirtualBox    | CentOS-7.0          | core,base | root      | Done      |
+| VirtualBox    | CentOS-6.7          | core,base | root      | Done      |
+| VirtualBox    | CentOS-6.6          | core,base | root      | Done      |
+| VirtualBox    | CentOS-6.5          | core,base | root      | Done      |
+| VirtualBox    | CentOS-5.11         | core,base | root      | Done      |
+| VirtualBox    | CentOS-5.11         | core,base | root      | Done      |
 
 [1]: https://github.com/mitchellh/packer
