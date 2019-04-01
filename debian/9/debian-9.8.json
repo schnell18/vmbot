@@ -30,6 +30,7 @@
         "ssh_password"     : "devel",
         "ssh_port"         : 22,
         "shutdown_command" : "sudo /sbin/halt -h -p",
+        "post_shutdown_delay" : "120s",
 
         "vboxmanage": [
             ["modifyvm", "{{.Name}}", "--memory", "512"],
@@ -40,7 +41,7 @@
         "type"                 : "vagrant",
         "include"              : ["vagrant/private.key"],
         "vagrantfile_template" : "vagrant/Vagrantfile",
-        "output"               : "scientificlinux-76.box"
+        "output"               : "debian98-min.box"
     }],
     "provisioners": [{
         "type"            : "shell",
