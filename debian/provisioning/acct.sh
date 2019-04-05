@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 mkdir ~devel/.ssh
 cat <<EOF > ~devel/.ssh/authorized_keys
@@ -44,3 +44,16 @@ chmod 700 /root/.ssh
 chmod 600 /root/.ssh/authorized_keys
 chmod 600 /root/.ssh/id_rsa
 chown -R root:root /root/.ssh
+
+# use local mirror
+mv /etc/apt/sources.list /etc/apt/sources.list.default
+cat <<EOF > /etc/apt/sources.list
+deb http://mirror.sjtu.edu.cn/debian/ stretch main contrib non-free
+deb-src http://mirror.sjtu.edu.cn/debian/ stretch main contrib non-free
+deb http://mirror.sjtu.edu.cn/debian/ stretch-updates main contrib non-free
+deb-src http://mirror.sjtu.edu.cn/debian/ stretch-updates main contrib non-free
+deb http://mirror.sjtu.edu.cn/debian/ stretch-backports main contrib non-free
+deb-src http://mirror.sjtu.edu.cn/debian/ stretch-backports main contrib non-free
+deb http://mirror.sjtu.edu.cn/debian-security/ stretch/updates main contrib non-free
+deb-src http://mirror.sjtu.edu.cn/debian-security/ stretch/updates main contrib non-free
+EOF
