@@ -57,3 +57,11 @@ deb-src http://mirror.sjtu.edu.cn/debian/ stretch-backports main contrib non-fre
 deb http://mirror.sjtu.edu.cn/debian-security/ stretch/updates main contrib non-free
 deb-src http://mirror.sjtu.edu.cn/debian-security/ stretch/updates main contrib non-free
 EOF
+
+cat <<EOF > /etc/apt/sources.list.d/buster.list
+deb http://mirror.sjtu.edu.cn/debian/ buster main contrib non-free
+EOF
+
+cat <<EOF > /etc/apt/apt.conf.d/default-release
+APT::Default-Release "stable";
+EOF
