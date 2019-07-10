@@ -48,20 +48,18 @@ chown -R root:root /root/.ssh
 # use local mirror
 mv /etc/apt/sources.list /etc/apt/sources.list.default
 cat <<EOF > /etc/apt/sources.list
-deb http://mirror.sjtu.edu.cn/debian/ stretch main contrib non-free
-deb-src http://mirror.sjtu.edu.cn/debian/ stretch main contrib non-free
-deb http://mirror.sjtu.edu.cn/debian/ stretch-updates main contrib non-free
-deb-src http://mirror.sjtu.edu.cn/debian/ stretch-updates main contrib non-free
-deb http://mirror.sjtu.edu.cn/debian/ stretch-backports main contrib non-free
-deb-src http://mirror.sjtu.edu.cn/debian/ stretch-backports main contrib non-free
-deb http://mirror.sjtu.edu.cn/debian-security/ stretch/updates main contrib non-free
-deb-src http://mirror.sjtu.edu.cn/debian-security/ stretch/updates main contrib non-free
-EOF
-
-cat <<EOF > /etc/apt/sources.list.d/buster.list
 deb http://mirror.sjtu.edu.cn/debian/ buster main contrib non-free
+deb-src http://mirror.sjtu.edu.cn/debian/ buster main contrib non-free
+deb http://mirror.sjtu.edu.cn/debian/ buster-updates main contrib non-free
+deb-src http://mirror.sjtu.edu.cn/debian/ buster-updates main contrib non-free
+deb http://mirror.sjtu.edu.cn/debian/ buster-backports main contrib non-free
+deb-src http://mirror.sjtu.edu.cn/debian/ buster-backports main contrib non-free
+deb http://mirror.sjtu.edu.cn/debian-security/ buster/updates main contrib non-free
+deb-src http://mirror.sjtu.edu.cn/debian-security/ buster/updates main contrib non-free
 EOF
 
 cat <<EOF > /etc/apt/apt.conf.d/default-release
-APT::Default-Release "stable";
+APT::Default-Release "buster";
 EOF
+
+apt-get update
