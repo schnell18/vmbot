@@ -2,7 +2,7 @@
     "builders": [{
         "type"             : "virtualbox-iso",
         "headless"         : false,
-        "vm_name"          : "debian10-min",
+        "vm_name"          : "debian99-min",
         "output_directory" : "build",
         "guest_os_type"    : "Debian_64",
         "disk_size"        : 40960,
@@ -10,15 +10,15 @@
         "hard_drive_nonrotational" : true,
         "hard_drive_discard" : true,
 
-        "iso_url"           : "https://mirrors.ustc.edu.cn/debian-cd/10.2.0/amd64/iso-dvd/debian-10.2.0-amd64-DVD-1.iso",
-        "iso_checksum"      : "c6612a744dfbac740a2a2aae2906f84ee6e4ca9a",
+        "iso_url"           : "https://mirrors.aliyun.com/debian-cd/9.9.0/amd64/iso-dvd/debian-9.9.0-amd64-DVD-1.iso",
+        "iso_checksum"      : "f57d141f20265a9e9ddb0854da11cf636ae01a33",
         "iso_checksum_type" : "sha1",
 
         "boot_command": [
             "<esc><wait>",
             "auto ",
             "net.ifnames=0  ",
-            "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/debian-10/preseed.cfg ",
+            "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/debian-9.8/preseed.cfg ",
             "<enter>"
         ],
         "boot_wait": "4s",
@@ -33,7 +33,7 @@
         "post_shutdown_delay" : "120s",
 
         "vboxmanage": [
-            ["modifyvm", "{{.Name}}", "--memory", "1024"],
+            ["modifyvm", "{{.Name}}", "--memory", "512"],
             ["modifyvm", "{{.Name}}", "--cpus", "1"]
         ]
     }],
@@ -41,14 +41,14 @@
         "type"                 : "vagrant",
         "include"              : ["vagrant/private.key"],
         "vagrantfile_template" : "vagrant/Vagrantfile",
-        "output"               : "debian10-min.box"
+        "output"               : "debian99-min.box"
     }],
     "provisioners": [{
         "type"            : "shell",
         "execute_command" : "{{ .Vars }} sudo -E sh '{{ .Path }}'",
         "scripts"         : [
             "provisioning/vboxguest.sh",
-            "10/provisioning/acct.sh",
+            "provisioning/acct.sh",
             "provisioning/compact.sh"
         ]
     }]
