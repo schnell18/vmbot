@@ -2,6 +2,9 @@
 *.swp
 *.swo
 *.log
+*.bak
+*.orig
+*.der
 *.box
 .rpms/
 packer_cache/
