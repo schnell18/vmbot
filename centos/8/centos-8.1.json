@@ -8,12 +8,13 @@
         "disk_size"        : 40960,
         "ssh_wait_timeout" : "120m",
 
-        "iso_url"           : "http://mirrors.aliyun.com/centos/8.1.1911/isos/x86_64/CentOS-8.1.1911-x86_64-dvd1.iso",
+        "iso_url"           : "http://mirror.sjtu.edu.cn/centos/8.1.1911/isos/x86_64/CentOS-8.1.1911-x86_64-dvd1.iso",
         "iso_checksum"      : "3ee3f4ea1538e026fff763e2b284a6f20b259d91d1ad5688f5783a67d279423b",
         "iso_checksum_type" : "sha256",
 
         "boot_command": [
-            "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-8.1/ks.cfg<enter><wait>"
+            "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-8.1/ks.cfg",
+            "<enter><wait>"
         ],
         "boot_wait": "4s",
 
