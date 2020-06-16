@@ -2,18 +2,18 @@
     "builders": [{
         "type"             : "virtualbox-iso",
         "headless"         : false,
-        "vm_name"          : "centos81_min",
+        "vm_name"          : "centos82_min",
         "output_directory" : "build",
         "guest_os_type"    : "RedHat_64",
         "disk_size"        : 40960,
         "ssh_wait_timeout" : "120m",
 
-        "iso_url"           : "http://mirror.sjtu.edu.cn/centos/8.1.1911/isos/x86_64/CentOS-8.1.1911-x86_64-dvd1.iso",
-        "iso_checksum"      : "3ee3f4ea1538e026fff763e2b284a6f20b259d91d1ad5688f5783a67d279423b",
+        "iso_url"           : "http://mirror.sjtu.edu.cn/centos/8.2.2004/isos/x86_64/CentOS-8.2.2004-x86_64-dvd1.iso",
+        "iso_checksum"      : "c87a2d81d67bbaeaf646aea5bedd70990078ec252fc52f5a7d65ff609871e255",
         "iso_checksum_type" : "sha256",
 
         "boot_command": [
-            "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-8.1/ks.cfg",
+            "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-8.2/ks.cfg",
             "<enter><wait>"
         ],
         "boot_wait": "4s",
@@ -35,7 +35,7 @@
         "type"                 : "vagrant",
         "include"              : ["vagrant/private.key"],
         "vagrantfile_template" : "vagrant/Vagrantfile",
-        "output"               : "centos81.box"
+        "output"               : "centos82.box"
     }],
     "provisioners": [{
         "type"            : "shell",
