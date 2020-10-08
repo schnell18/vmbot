@@ -19,6 +19,7 @@ recent JDK rpm from Oracle and place it under the centos/.rpms directory.
 # Virtual Machine catalog
 | Type          | OS                  | Pkgs      | root pass | comment   |
 | ------------- | ------------------- | --------- | --------- | --------- |
+| VirtualBox    | Debian-10.6         | core,base | root      | Done      |
 | VirtualBox    | Debian-10.4         | core,base | root      | Done      |
 | VirtualBox    | Debian-10.3         | core,base | root      | Done      |
 | VirtualBox    | Debian-10.2         | core,base | root      | Done      |
@@ -36,4 +37,8 @@ recent JDK rpm from Oracle and place it under the centos/.rpms directory.
 | VirtualBox    | CentOS-5.11         | core,base | root      | Done      |
 | VirtualBox    | CentOS-5.11         | core,base | root      | Done      |
 
+You can also use ready-made Debian 10.x boxes [schnell18/buster64][2]
+from my Vagrant cloud repository.
+
 [1]: https://github.com/mitchellh/packer
+[2]: https://app.vagrantup.com/schnell18/boxes/buster64
