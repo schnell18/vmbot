@@ -1,0 +1,61 @@
+{
+  "builders": [
+    {
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-8.3/ks.cfg",
+        "<enter><wait>"
+      ],
+      "boot_wait": "4s",
+      "disk_size": 40960,
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "guest_os_type": "RedHat_64",
+      "headless": false,
+      "http_directory": "unattended",
+      "iso_checksum": "sha256:aaf9d4b3071c16dbbda01dfe06085e5d0fdac76df323e3bbe87cce4318052247",
+      "iso_url": "http://mirror.sjtu.edu.cn/centos/8.3.2011/isos/x86_64/CentOS-8.3.2011-x86_64-dvd1.iso",
+      "output_directory": "build",
+      "shutdown_command": "sudo /sbin/halt -h -p",
+      "ssh_password": "devel",
+      "ssh_port": 22,
+      "ssh_timeout": "120m",
+      "ssh_username": "devel",
+      "type": "virtualbox-iso",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "2048"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "1"
+        ]
+      ],
+      "vm_name": "centos83_min"
+    }
+  ],
+  "post-processors": [
+    {
+      "include": [
+        "vagrant/private.key"
+      ],
+      "output": "centos83.box",
+      "type": "vagrant",
+      "vagrantfile_template": "vagrant/Vagrantfile"
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "{{ .Vars }} sudo -E sh '{{ .Path }}'",
+      "scripts": [
+        "provisioning/vboxguest.sh",
+        "provisioning/compact.sh"
+      ],
+      "type": "shell"
+    }
+  ]
+}
+

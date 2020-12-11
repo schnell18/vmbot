@@ -25,6 +25,7 @@ recent JDK rpm from Oracle and place it under the centos/.rpms directory.
 | VirtualBox    | Debian-10.2         | core,base | root      | Done      |
 | VirtualBox    | Debian-10.1         | core,base | root      | Done      |
 | VirtualBox    | Debian-9.8          | core,base | root      | Done      |
+| VirtualBox    | CentOS-8.3          | core,base | root      | Done      |
 | VirtualBox    | CentOS-8.0          | core,base | root      | Done      |
 | VirtualBox    | ScientificLinux-7.6 | core,base | root      | Done      |
 | VirtualBox    | CentOS-7.4          | core,base | root      | Done      |
