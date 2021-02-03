@@ -1,0 +1,55 @@
+{
+    "builders": [{
+        "type"             : "virtualbox-iso",
+        "headless"         : false,
+        "vm_name"          : "debian10.7-min",
+        "output_directory" : "build",
+        "guest_os_type"    : "Debian_64",
+        "disk_size"        : 40960,
+        "ssh_wait_timeout" : "120m",
+        "hard_drive_nonrotational" : true,
+        "hard_drive_interface" : "sata",
+        "sata_port_count" : 30,
+        "hard_drive_discard" : true,
+        "iso_url"           : "http://mirror.sjtu.edu.cn/debian-cd/10.7.0/amd64/iso-dvd/debian-10.7.0-amd64-DVD-1.iso",
+        "iso_checksum"      : "sha256:a961b2e419dee43e86579c2ba7e6deaaaa740d145e3dd631cc8dcb8ad88581a5",
+
+        "boot_command": [
+            "<esc><wait>",
+            "auto ",
+            "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/debian-10.7/preseed.cfg ",
+            "net.ifnames=0  ",
+            "<enter>"
+        ],
+        "boot_wait": "10s",
+
+        "http_directory"       : "unattended",
+        "guest_additions_path" : "VBoxGuestAdditions_{{.Version}}.iso",
+
+        "ssh_username"     : "devel",
+        "ssh_password"     : "devel",
+        "ssh_port"         : 22,
+        "shutdown_command" : "sudo /sbin/halt -h -p",
+        "post_shutdown_delay" : "120s",
+
+        "vboxmanage": [
+            ["modifyvm", "{{.Name}}", "--memory", "1024"],
+            ["modifyvm", "{{.Name}}", "--cpus", "1"]
+        ]
+    }],
+    "post-processors": [{
+        "type"                 : "vagrant",
+        "include"              : ["vagrant/private.key"],
+        "vagrantfile_template" : "vagrant/Vagrantfile",
+        "output"               : "debian10.7-min.box"
+    }],
+    "provisioners": [{
+        "type"            : "shell",
+        "execute_command" : "{{ .Vars }} sudo -E sh '{{ .Path }}'",
+        "scripts"         : [
+            "provisioning/vboxguest.sh",
+            "10/provisioning/acct.sh",
+            "provisioning/compact.sh"
+        ]
+    }]
+}
