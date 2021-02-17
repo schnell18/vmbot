@@ -19,6 +19,8 @@ recent JDK rpm from Oracle and place it under the centos/.rpms directory.
 # Virtual Machine catalog
 | Type          | OS                  | Pkgs      | root pass | comment   |
 | ------------- | ------------------- | --------- | --------- | --------- |
+| VirtualBox    | Debian-10.8         | core,base | root      | Done      |
+| VirtualBox    | Debian-10.7         | core,base | root      | Done      |
 | VirtualBox    | Debian-10.6         | core,base | root      | Done      |
 | VirtualBox    | Debian-10.4         | core,base | root      | Done      |
 | VirtualBox    | Debian-10.3         | core,base | root      | Done      |
