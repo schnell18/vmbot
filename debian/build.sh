@@ -11,5 +11,6 @@ export PACKER_LOG_PATH=packer_err.log
 #packer build 10/debian-10.6.json
 #packer build 10/debian-10.7.json
 #packer build 10/debian-10.8.json
-packer build 10/debian-10.11.json
+#packer build 10/debian-10.11.json
 #packer build 11/debian-11.0.json
+packer build 11/debian-11.2.json
