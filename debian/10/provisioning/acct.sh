@@ -2,7 +2,19 @@
 
 mkdir ~devel/.ssh
 cat <<EOF > ~devel/.ssh/authorized_keys
-ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEArlAzSLt69/Ts+10k8AaMPTyjXDX6TgePtk2weQykSO4cvR/ufBKiWENq3wUflIqbGfgNkuVeux8XKe4ko7pAGToH44CkEaf3p9+oSsqEp/H1vu3q8VSJutBK0OTmIJzgxXWrM15esbJl6ew0h7VIgT//8Grjqn0MFUK5/rNEYj8+yI3yUbn5y0doFjYwy0J6EwIHwCvumtxQV76jHc7DAeKE1GQCsBDtFRDypdkWMVArkEYRv7dNDbHsBiMGBqj/2LrAX9/eroQ5sp3kdVEIl4HRgbOXrRA7Odeh+UAQwctxGowJXreqX+ZxIapwOoF8RulUAjThH/VRAOfLUcSvYw== Shared CVC public key
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJbN8ElX2mCjCyk4pUA2kFseTeV+Km+e3GLBPxuZZw0G devel_box
+EOF
+cat <<EOF > ~devel/.ssh/id_ed25519
+-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+QyNTUxOQAAACCWzfBJV9pgowspOKVANpBbHk3lfipvntxiwT8bmWcNBgAAAJheqDNfXqgz
+XwAAAAtzc2gtZWQyNTUxOQAAACCWzfBJV9pgowspOKVANpBbHk3lfipvntxiwT8bmWcNBg
+AAAEB+MFBzo1zCKdE2Ol22+5e+y2j0E7chbyflheTb2Nmj0ZbN8ElX2mCjCyk4pUA2kFse
+TeV+Km+e3GLBPxuZZw0GAAAAE2p1c3RpbkBqdXN0aW4tb21lbjEBAg==
+-----END OPENSSH PRIVATE KEY-----
+EOF
+cat <<EOF >> ~devel/.ssh/authorized_keys
+ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEArlAzSLt69/Ts+10k8AaMPTyjXDX6TgePtk2weQykSO4cvR/ufBKiWENq3wUflIqbGfgNkuVeux8XKe4ko7pAGToH44CkEaf3p9+oSsqEp/H1vu3q8VSJutBK0OTmIJzgxXWrM15esbJl6ew0h7VIgT//8Grjqn0MFUK5/rNEYj8+yI3yUbn5y0doFjYwy0J6EwIHwCvumtxQV76jHc7DAeKE1GQCsBDtFRDypdkWMVArkEYRv7dNDbHsBiMGBqj/2LrAX9/eroQ5sp3kdVEIl4HRgbOXrRA7Odeh+UAQwctxGowJXreqX+ZxIapwOoF8RulUAjThH/VRAOfLUcSvYw== devel box public key
 EOF
 cat <<EOF > ~devel/.ssh/id_rsa
 -----BEGIN RSA PRIVATE KEY-----
@@ -37,25 +49,27 @@ chown -R devel:devel ~devel/.ssh
 chmod 700 ~devel/.ssh
 chmod 600 ~devel/.ssh/authorized_keys
 chmod 600 ~devel/.ssh/id_rsa
+chmod 600 ~devel/.ssh/id_ed25519
 mkdir /root/.ssh
 cp ~devel/.ssh/authorized_keys /root/.ssh
 cp ~devel/.ssh/id_rsa /root/.ssh
 chmod 700 /root/.ssh
 chmod 600 /root/.ssh/authorized_keys
 chmod 600 /root/.ssh/id_rsa
+chmod 600 /root/.ssh/id_ed25519
 chown -R root:root /root/.ssh
 
 # use local mirror
 mv /etc/apt/sources.list /etc/apt/sources.list.default
 cat <<EOF > /etc/apt/sources.list
-deb http://mirror.sjtu.edu.cn/debian/ buster main contrib non-free
-deb-src http://mirror.sjtu.edu.cn/debian/ buster main contrib non-free
-deb http://mirror.sjtu.edu.cn/debian/ buster-updates main contrib non-free
-deb-src http://mirror.sjtu.edu.cn/debian/ buster-updates main contrib non-free
-deb http://mirror.sjtu.edu.cn/debian/ buster-backports main contrib non-free
-deb-src http://mirror.sjtu.edu.cn/debian/ buster-backports main contrib non-free
-deb http://mirror.sjtu.edu.cn/debian-security/ buster/updates main contrib non-free
-deb-src http://mirror.sjtu.edu.cn/debian-security/ buster/updates main contrib non-free
+deb https://mirror.sjtu.edu.cn/debian/ buster main contrib non-free
+deb-src https://mirror.sjtu.edu.cn/debian/ buster main contrib non-free
+deb https://mirror.sjtu.edu.cn/debian/ buster-updates main contrib non-free
+deb-src https://mirror.sjtu.edu.cn/debian/ buster-updates main contrib non-free
+deb https://mirror.sjtu.edu.cn/debian/ buster-backports main contrib non-free
+deb-src https://mirror.sjtu.edu.cn/debian/ buster-backports main contrib non-free
+deb https://mirror.sjtu.edu.cn/debian-security/ buster/updates main contrib non-free
+deb-src https://mirror.sjtu.edu.cn/debian-security/ buster/updates main contrib non-free
 EOF
 
 cat <<EOF > /etc/apt/apt.conf.d/default-release
