@@ -19,4 +19,5 @@ export PACKER_LOG_PATH=packer_err.log
 # packer build 8/centos-8.0.json
 # packer build 8/centos-8.1.json
 # packer build 8/centos-8.2.json
-packer build 8/centos-8.3.json
+# packer build 8/centos-8.3.json
+packer build 7/centos-7.9.json
