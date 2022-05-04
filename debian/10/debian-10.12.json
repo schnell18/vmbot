@@ -2,22 +2,27 @@
     "builders": [{
         "type"             : "virtualbox-iso",
         "headless"         : false,
-        "vm_name"          : "centos79-min",
+        "vm_name"          : "debian10.12-min",
         "output_directory" : "build",
-        "guest_os_type"    : "RedHat_64",
+        "guest_os_type"    : "Debian_64",
         "disk_size"        : 40960,
         "ssh_wait_timeout" : "120m",
         "hard_drive_nonrotational" : true,
         "hard_drive_interface" : "sata",
         "sata_port_count" : 30,
         "hard_drive_discard" : true,
-        "iso_url"           : "https://mirror.sjtu.edu.cn/centos/7.9.2009/isos/x86_64/CentOS-7-x86_64-Everything-2009.iso",
-        "iso_checksum"      : "sha256:689531cce9cf484378481ae762fae362791a9be078fda10e4f6977bf8fa71350",
+        "iso_url"           : "https://cdimage.debian.org/cdimage/archive/10.12.0/amd64/iso-dvd/debian-10.12.0-amd64-DVD-1.iso",
+
+        "iso_checksum"      : "sha256:7d39e6d9ee2d63e2f93424224596413dc2ff937894c05cfdfdb7a8a50b775bf1",
 
         "boot_command": [
-            "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos-7.9/ks.cfg<enter><wait>"
+            "<esc><wait>",
+            "auto ",
+            "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/debian-10.12/preseed.cfg ",
+            "net.ifnames=0  ",
+            "<enter>"
         ],
-        "boot_wait": "4s",
+        "boot_wait": "10s",
 
         "http_directory"       : "unattended",
         "guest_additions_path" : "VBoxGuestAdditions_{{.Version}}.iso",
@@ -26,25 +31,25 @@
         "ssh_password"     : "devel",
         "ssh_port"         : 22,
         "shutdown_command" : "sudo /sbin/halt -h -p",
+        "post_shutdown_delay" : "120s",
 
         "vboxmanage": [
-            ["modifyvm", "{{.Name}}", "--memory", "512"],
-            ["modifyvm", "{{.Name}}", "--cpus", "1"],
-            ["modifyvm", "{{.Name}}", "--nic1", "nat", "--nictype1", "82545EM"],
-            ["modifyvm", "{{.Name}}", "--nic2", "hostonly", "--nictype2", "82545EM"]
+            ["modifyvm", "{{.Name}}", "--memory", "1024"],
+            ["modifyvm", "{{.Name}}", "--cpus", "1"]
         ]
     }],
     "post-processors": [{
         "type"                 : "vagrant",
         "include"              : ["vagrant/private.key"],
         "vagrantfile_template" : "vagrant/Vagrantfile",
-        "output"               : "centos79_min.box"
+        "output"               : "debian10.12-min.box"
     }],
     "provisioners": [{
         "type"            : "shell",
         "execute_command" : "{{ .Vars }} sudo -E sh '{{ .Path }}'",
         "scripts"         : [
             "provisioning/vboxguest.sh",
+            "10/provisioning/acct.sh",
             "provisioning/compact.sh"
         ]
     }]
