@@ -2,7 +2,7 @@
   "builders": [
     {
       "boot_command": [
-        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/rockylinux-8.5/ks.cfg",
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/anolis-8.6/ks.cfg",
         "<enter><wait>"
       ],
       "boot_wait": "4s",
@@ -11,8 +11,8 @@
       "guest_os_type": "RedHat_64",
       "headless": false,
       "http_directory": "unattended",
-      "iso_checksum": "sha256:0081f8b969d0cef426530f6d618b962c7a01e71eb12a40581a83241f22dfdc25",
-      "iso_url": "https://download.rockylinux.org/pub/rocky/8/isos/x86_64/Rocky-8.5-x86_64-dvd1.iso",
+      "iso_checksum": "md5:f56b3572d107d0dd0f12d7009a051701",
+      "iso_url": "https://mirrors.openanolis.cn/anolis/8.6/isos/QU1/x86_64/AnolisOS-8.6-QU1-x86_64-dvd.iso",
       "output_directory": "build",
       "shutdown_command": "sudo /sbin/halt -h -p",
       "ssh_password": "devel",
@@ -34,7 +34,7 @@
           "1"
         ]
       ],
-      "vm_name": "rockylinux84_min"
+      "vm_name": "anolis86QU1_min"
     }
   ],
   "post-processors": [
@@ -42,7 +42,7 @@
       "include": [
         "vagrant/private.key"
       ],
-      "output": "rockylinux84_min.box",
+      "output": "anolis86QU1_min.box",
       "type": "vagrant",
       "vagrantfile_template": "vagrant/Vagrantfile"
     }
