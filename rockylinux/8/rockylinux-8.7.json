@@ -1,0 +1,61 @@
+{
+  "builders": [
+    {
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/rockylinux-8.7/ks.cfg",
+        "<enter><wait>"
+      ],
+      "boot_wait": "4s",
+      "disk_size": 40960,
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "guest_os_type": "RedHat_64",
+      "headless": false,
+      "http_directory": "unattended",
+      "iso_checksum": "sha256:4827dce1c58560d3ca470a5053e8d86ba059cbb77cfca3b5f6a5863d2aac5b84",
+      "iso_url": "https://download.rockylinux.org/pub/rocky/8/isos/x86_64/Rocky-8.7-x86_64-dvd1.iso",
+      "output_directory": "build",
+      "shutdown_command": "sudo /sbin/halt -h -p",
+      "ssh_password": "devel",
+      "ssh_port": 22,
+      "ssh_timeout": "120m",
+      "ssh_username": "devel",
+      "type": "virtualbox-iso",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "2048"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "1"
+        ]
+      ],
+      "vm_name": "rockylinux87_min"
+    }
+  ],
+  "post-processors": [
+    {
+      "include": [
+        "vagrant/private.key"
+      ],
+      "output": "rockylinux87_min.box",
+      "type": "vagrant",
+      "vagrantfile_template": "vagrant/Vagrantfile"
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "{{ .Vars }} sudo -E sh '{{ .Path }}'",
+      "scripts": [
+        "provisioning/vboxguest.sh",
+        "provisioning/compact.sh"
+      ],
+      "type": "shell"
+    }
+  ]
+}
+
