@@ -7,5 +7,6 @@
 *.der
 *.box
 .rpms/
+.vagrant/
 packer_cache/
 build/
