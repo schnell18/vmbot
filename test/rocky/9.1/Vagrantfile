@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
     config.hostmanager.manage_guest = true
 
     (1..NODES).each do |i|
-        node_id = "rocky#{i}"
+        node_id = "rocky91ut#{i}"
         config.vm.define node_id do |node|
             node.vm.box = IMAGE_NAME
             node.vm.box_version = IMAGE_VERSION
