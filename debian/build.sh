@@ -17,6 +17,7 @@ export PACKER_LOG_PATH=packer_err.log
 # packer build 11/debian-11.3.json
 # packer build 10/debian-10.11.json
 # packer build 11/debian-11.5.json
-pushd 11/11.6
+# pushd 11/11.6
+pushd 12/12.0
 packer build .
 popd
